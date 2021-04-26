@@ -1,0 +1,46 @@
+﻿@model TechnickalTask.Responses.Response
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Please put URLs into textarea each from new line.</p>
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <textarea name="urls"></textarea>
+        <button type="submit" id="sent">Sens</button>
+    </form>
+</div>
+
+@if (Model != null)
+{
+    if (!string.IsNullOrWhiteSpace(Model.Error))
+    {
+        <b>@Model.Error</b>
+    }
+    if (Model.UrlResponses.Count > 0)
+    {
+        <table>
+            <thead>
+            <tr>
+                <th>Url</th>
+                <th>Title</th>
+                <th>StatusCode</th>
+                <th>Error</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var urlResponse in Model.UrlResponses)
+            {
+                <tr>
+                    <th>@urlResponse.Url</th>
+                    <th>@urlResponse.Title</th>
+                    <th>@urlResponse.StatusCode</th>
+                    <th>@urlResponse.Error</th>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}
